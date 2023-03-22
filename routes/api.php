@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\RecipeController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,6 +16,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/me', [AuthenticationController::class, 'me']);
 
     Route::post('/recipes', [RecipeController::class, 'store']);
+
+    Route::post('/comment', [CommentController::class, 'store']);
 });
 
 Route::post('/login', [AuthenticationController::class, 'login']);
