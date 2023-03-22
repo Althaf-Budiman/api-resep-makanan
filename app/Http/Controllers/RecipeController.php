@@ -35,4 +35,12 @@ class RecipeController extends Controller
         $recipe = Recipe::create($request->all());
         return new RecipeDetailResource($recipe->loadMissing('writer:id,name'));
     }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'title' => 'required|max:255',
+            'news_content' => 'required'
+        ]);
+    }
 }

@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\RecipeController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth:sanctum'])->group(function () {
@@ -12,7 +11,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::get('/me', [AuthenticationController::class, 'me']);
 
-    Route::post('recipes', [RecipeController::class, 'store']);
+    Route::post('/recipes', [RecipeController::class, 'store']);
+    Route::patch('/recipes/{id}', [RecipeController::class, 'update'])->middleware('recipe.owner');
 });
 
 Route::post('/login', [AuthenticationController::class, 'login']);
