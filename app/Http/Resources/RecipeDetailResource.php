@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class RecipeResource extends JsonResource
+class RecipeDetailResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,6 +18,7 @@ class RecipeResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'recipe_content' => $this->recipe_content,
+            'author' => $this->author,
             'created_at' => date_format($this->created_at, "Y/m/d H:i:s")
         ];
     }
