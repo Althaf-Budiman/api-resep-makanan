@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Recipe extends Model
 {
@@ -14,4 +15,14 @@ class Recipe extends Model
         'recipe_content',
         'author'
     ];
+
+    /**
+     * Get the writer that owns the Recipe
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function writer(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'author', 'id');
+    }
 }

@@ -18,7 +18,8 @@ class RecipeDetailResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'recipe_content' => $this->recipe_content,
-            'author' => $this->author,
+            'author_id' => $this->author,
+            'writer' => $this->whenLoaded('writer'),
             'created_at' => date_format($this->created_at, "Y/m/d H:i:s")
         ];
     }

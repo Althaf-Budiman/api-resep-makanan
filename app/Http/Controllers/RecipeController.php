@@ -18,7 +18,7 @@ class RecipeController extends Controller
 
     public function show($id)
     {
-        $recipes = Recipe::findOrFail($id);
+        $recipes = Recipe::with('writer:id,name')->findOrFail($id);
         return new RecipeDetailResource($recipes);
     }
 }
