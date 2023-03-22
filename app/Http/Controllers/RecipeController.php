@@ -48,4 +48,14 @@ class RecipeController extends Controller
 
         return new RecipeDetailResource($recipe->loadMissing('writer:id,name'));
     }
+
+    public function delete($id)
+    {
+        $recipe = Recipe::findOrFail($id);
+        $recipe->delete();
+
+        return response()->json([
+            'message' => 'Data successfully deleted.'
+        ]);
+    }
 }

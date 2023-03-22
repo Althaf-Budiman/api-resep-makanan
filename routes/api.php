@@ -8,6 +8,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/recipes', [RecipeController::class, 'index']);
     Route::get('/recipes/{id}', [RecipeController::class, 'show']);
     Route::patch('/recipes/{id}', [RecipeController::class, 'update'])->middleware('recipe.owner');
+    Route::delete('/recipes/{id}', [RecipeController::class, 'delete'])->middleware('recipe.owner');
 
     Route::post('/logout', [AuthenticationController::class, 'logout']);
 
