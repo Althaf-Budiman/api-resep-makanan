@@ -14,12 +14,12 @@ class RecipeController extends Controller
     {
         $recipes = Recipe::all();
         // return response()->json($recipes);
-        return RecipeResource::collection($recipes);
+        return RecipeDetailResource::collection($recipes->loadMissing(['writer:id,name', 'comments:id,recipe_id,user_id,comment_content']));
     }
 
     public function show($id)
     {
-        $recipes = Recipe::with('writer:id,name')->findOrFail($id);
+        $recipes = Recipe::with(['writer:id,name', 'comments:id,recipe_id,user_id,comment_content'])->findOrFail($id);
         return new RecipeDetailResource($recipes);
     }
 
