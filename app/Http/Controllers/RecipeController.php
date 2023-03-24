@@ -24,6 +24,13 @@ class RecipeController extends Controller
         return new RecipeDetailResource($recipes);
     }
 
+    public function search($query)
+    {
+        $results = Recipe::where('title', 'like', "%$query%")->get();
+
+        return response()->json($results);
+    }
+
     public function store(Request $request)
     {
         $request->validate([
