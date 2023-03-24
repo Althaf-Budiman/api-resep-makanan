@@ -7,6 +7,7 @@ use App\Http\Resources\RecipeResource;
 use App\Models\Recipe;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class RecipeController extends Controller
 {
@@ -27,9 +28,21 @@ class RecipeController extends Controller
     {
         $request->validate([
             'title' => 'required|max:255',
-            'recipe_content' => 'required'
+            'recipe_content' => 'required',
         ]);
 
+        $image = null;
+
+        if ($request->file) {
+            $fileName = $this->generateRandomString();
+            $extension = $request->file->extension();
+
+            $image = $fileName . '.' . $extension;
+
+            Storage::putFileAs('image', $request->file, $image);
+        }
+
+        $request['image'] = $image;
         $request['author'] = Auth::user()->id;
 
         $recipe = Recipe::create($request->all());
@@ -40,8 +53,21 @@ class RecipeController extends Controller
     {
         $request->validate([
             'title' => 'required|max:255',
-            'recipe_content' => 'required'
+            'recipe_content' => 'required',
         ]);
+
+        $image = null;
+
+        if ($request->file) {
+            $fileName = $this->generateRandomString();
+            $extension = $request->file->extension();
+
+            $image = $fileName . '.' . $extension;
+
+            Storage::putFileAs('image', $request->file, $image);
+        }
+
+        $request['image'] = $image;
 
         $recipe = Recipe::findOrfail($id);
         $recipe->update($request->all());
@@ -57,5 +83,16 @@ class RecipeController extends Controller
         return response()->json([
             'message' => 'Data successfully deleted.'
         ]);
+    }
+
+    function generateRandomString($length = 20)
+    {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[random_int(0, $charactersLength - 1)];
+        }
+        return $randomString;
     }
 }

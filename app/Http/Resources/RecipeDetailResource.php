@@ -18,13 +18,14 @@ class RecipeDetailResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'recipe_content' => $this->recipe_content,
+            'image' => $this->image,
             'author_id' => $this->author,
             'writer' => $this->whenLoaded('writer'),
-            'comment_total' => $this->whenLoaded('comments', function() {
+            'comment_total' => $this->whenLoaded('comments', function () {
                 return count($this->comments);
             }),
-            'comments' => $this->whenLoaded('comments', function() {
-                return collect($this->comments)->each(function($comment) {
+            'comments' => $this->whenLoaded('comments', function () {
+                return collect($this->comments)->each(function ($comment) {
                     $comment->commentator;
                     return $comment;
                 });
