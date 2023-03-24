@@ -42,4 +42,21 @@ class AuthenticationController extends Controller
         $user = Auth::user();
         return response()->json($user);
     }
+
+    public function register(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:8',
+        ]);
+
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+
+        return response()->json('Akun telah dibuat');
+    }
 }
