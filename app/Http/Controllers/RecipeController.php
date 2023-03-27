@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\RecipeDetailResource;
-use App\Http\Resources\RecipeResource;
 use App\Models\Recipe;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class RecipeController extends Controller
 {
@@ -45,11 +45,17 @@ class RecipeController extends Controller
             'recipe_content' => 'required',
         ]);
 
+        $allowedExtension = ['jpg', 'png', 'jpeg'];
+
         $image = null;
 
         if ($request->file) {
             $fileName = $this->generateRandomString();
             $extension = $request->file->extension();
+
+            if (!in_array($extension, $allowedExtension)) {
+                return response()->json(['error' => 'Invalid file extension. Only JPG, JPEG, PNG, extensions are allowed.'], 400);
+            }
 
             $image = $fileName . '.' . $extension;
 
@@ -70,11 +76,17 @@ class RecipeController extends Controller
             'recipe_content' => 'required',
         ]);
 
+        $allowedExtension = ['jpg', 'png', 'jpeg'];
+
         $image = null;
 
         if ($request->file) {
             $fileName = $this->generateRandomString();
             $extension = $request->file->extension();
+
+            if (!in_array($extension, $allowedExtension)) {
+                return response()->json(['error' => 'Invalid file extension. Only JPG, JPEG, PNG, extensions are allowed.'], 400);
+            }
 
             $image = $fileName . '.' . $extension;
 
