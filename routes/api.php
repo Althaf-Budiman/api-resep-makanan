@@ -22,6 +22,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::delete('/comment/{id}', [CommentController::class, 'delete'])->middleware('comment.owner');
 
     Route::get('/search/{query}', [RecipeController::class, 'search']);
+    Route::get('/recipes/type/{type}', [RecipeController::class, 'showByType']);
 });
 
 Route::post('/login', [AuthenticationController::class, 'login']);

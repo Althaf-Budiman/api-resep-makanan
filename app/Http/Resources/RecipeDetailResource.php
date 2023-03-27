@@ -17,8 +17,9 @@ class RecipeDetailResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'recipe_content' => $this->recipe_content,
             'image' => $this->image,
+            'recipe_content' => $this->recipe_content,
+            'type' => $this->type,
             'author_id' => $this->author,
             'writer' => $this->whenLoaded('writer'),
             'comment_total' => $this->whenLoaded('comments', function () {

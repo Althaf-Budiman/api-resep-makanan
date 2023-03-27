@@ -24,6 +24,12 @@ class RecipeController extends Controller
         return new RecipeDetailResource($recipes);
     }
 
+    public function showByType($type)
+    {
+        $results = Recipe::where('type', $type)->get();
+        return response()->json($results);
+    }
+
     public function search($query)
     {
         $results = Recipe::where('title', 'like', "%$query%")
