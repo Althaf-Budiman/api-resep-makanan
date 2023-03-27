@@ -27,7 +27,7 @@ class RecipeController extends Controller
     public function showByType($type)
     {
         $results = Recipe::where('type', $type)->get();
-        return response()->json($results);
+        return RecipeDetailResource::collection($results->loadMissing(['writer:id,name', 'comments:id,recipe_id,user_id,comment_content']));
     }
 
     public function search($query)
@@ -35,7 +35,7 @@ class RecipeController extends Controller
         $results = Recipe::where('title', 'like', "%$query%")
             ->orWhere('recipe_content', 'like', "%$query%")->get();
 
-        return response()->json($results);
+        return RecipeDetailResource::collection($results->loadMissing(['writer:id,name', 'comments:id,recipe_id,user_id,comment_content']));
     }
 
     public function store(Request $request)
