@@ -26,7 +26,8 @@ class RecipeController extends Controller
 
     public function search($query)
     {
-        $results = Recipe::where('title', 'like', "%$query%")->get();
+        $results = Recipe::where('title', 'like', "%$query%")
+            ->orWhere('recipe_content', 'like', "%$query%")->get();
 
         return response()->json($results);
     }
