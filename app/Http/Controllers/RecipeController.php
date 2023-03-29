@@ -43,6 +43,7 @@ class RecipeController extends Controller
         $request->validate([
             'title' => 'required|max:255',
             'recipe_content' => 'required',
+            'type' => 'required'
         ]);
 
         $allowedExtension = ['jpg', 'png', 'jpeg'];
@@ -74,6 +75,7 @@ class RecipeController extends Controller
         $request->validate([
             'title' => 'required|max:255',
             'recipe_content' => 'required',
+            'type' => ' required'
         ]);
 
         $allowedExtension = ['jpg', 'png', 'jpeg'];
